@@ -63,6 +63,12 @@ L̂|vᵢ⟩ = Σⱼ Lⱼᵢ |vⱼ⟩  ,   Lⱼᵢ = ⟨vⱼ| L̂ |vᵢ⟩
 
 bra가 ket의 Hermitian 전치였던 것(5장)과 같은 연산이다.
 
+<Figure
+  src="/figures/ch09-transpose-hermitian.png"
+  caption="역행렬·전치·Hermitian 전치. A† = (Aᵗ)* 가 곧 역행렬이면 unitary, A† = A 이면 Hermitian — 양자 연산을 규정하는 두 가지 핵심 조건이다."
+  source="「프로그래밍으로 배우는 양자컴퓨팅」 강의자료"
+/>
+
 ## unitary 연산자 — 양자 게이트의 정체
 
 <Eq label="unitary 조건">
@@ -116,6 +122,12 @@ Hermitian 연산자는 `⟨ψ|Ĥ|ψ⟩` 가 항상 **실수** 라는 성질을 �
 σᵧ = [ 0  −i ]
      [ i   0 ]
 </Eq>
+
+<Figure
+  src="/figures/ch09-pauli-operators.png"
+  caption="Pauli Y 연산자 σᵧ. σᵧ† = σᵧ 이므로 Hermitian, σᵧ σᵧ† = I 이므로 unitary — 두 조건을 동시에 만족하는 행렬이라 게이트로도 측정 기준으로도 쓰인다."
+  source="「프로그래밍으로 배우는 양자컴퓨팅」 강의자료"
+/>
 
 이 `σᵧ` 를 따져 보면:
 

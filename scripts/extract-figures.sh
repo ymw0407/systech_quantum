@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+# 강의자료 PDF에서 본문에 인용할 슬라이드 페이지를 PNG로 추출한다.
+#
+# 사용법: bash scripts/extract-figures.sh
+#
+# 결과는 public/figures/ 에 저장되며, MDX 의 <Figure src="/figures/..." /> 에서 참조한다.
+# pdf/ 폴더는 .gitignore 에 있으므로 이 스크립트는 로컬에서만 동작한다.
+# (추출된 PNG 는 public/figures/ 에 커밋되어 CI 빌드에서도 쓰인다.)
+#
+# 필요 도구: pdftoppm (brew install poppler)
+
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+OUT=public/figures
+mkdir -p "$OUT"
+
+PDF=pdf
+LAB="$PDF/1장_lab01QuantumCircuit.pdf"   # 양자 회로 구성 실습
+STATE="$PDF/3장_1QuantumState.pdf"        # 양자 상태와 선형대수
+
+render() {
+  local src="$1"     # pdf 경로
+  local page="$2"    # 1-based 페이지 번호
+  local dst="$3"     # 출력 prefix (.png 자동 접미)
+  local dpi="${4:-150}"
+  echo "• $(basename "$src") p.$page -> $OUT/$dst.png"
+  pdftoppm -r "$dpi" -f "$page" -l "$page" -png "$src" "$OUT/$dst-tmp"
+  local generated
+  generated=$(ls "$OUT/${dst}-tmp"*.png 2>/dev/null | head -n 1 || true)
+  if [[ -n "$generated" ]]; then
+    mv "$generated" "$OUT/${dst}.png"
+  else
+    echo "  ⚠️  $dst 를 생성하지 못했습니다."
+  fi
+}
+
+# ── Ch1. 비트에서 큐비트로 ─────────────────────────────────────
+render "$LAB"   4  ch01-half-adder-logic     # 고전 논리회로 half adder + 진리표
+render "$STATE" 6  ch01-bloch-sphere         # 1 qubit = Bloch sphere
+
+# ── Ch2. 양자 회로 만들기 ──────────────────────────────────────
+render "$LAB"   9  ch02-composer-ui          # IBM Quantum Composer 화면 구성
+render "$LAB"  11  ch02-x-gate               # Pauli X 게이트 입출력 + 화면
+render "$LAB"  13  ch02-cx-gate              # CX(CNOT) 게이트 진리표 + 화면
+render "$LAB"  15  ch02-toffoli              # Toffoli(CCX) 게이트 진리표 + 화면
+render "$LAB"  16  ch02-half-adder-circuit   # 조립된 half adder (1+1=10)
+
+# ── Ch3. 중첩과 측정 ──────────────────────────────────────────
+render "$STATE" 1  ch03-half-adder-quantum   # half adder 전체 회로 (ψ0..ψ3)
+render "$LAB"  19  ch03-h-gate               # H 게이트로 만든 중첩 |00++⟩
+render "$LAB"  22  ch03-schrodinger          # 슈뢰딩거 고양이 + 측정 회로
+render "$LAB"  26  ch03-qec                  # 실제 장치의 오류, QEC
+
+# ── Ch4. 복소수와 벡터 ────────────────────────────────────────
+render "$STATE" 8  ch04-complex-number       # 복소수 (i, norm, 켤레)
+render "$STATE" 9  ch04-vector-operations    # 벡터 연산 (스칼라곱·합·norm·내적)
+
+# ── Ch5. 디랙 표기법 ──────────────────────────────────────────
+render "$STATE" 10 ch05-braket-notation      # Dirac's Bra-Ket Notation
+render "$STATE" 19 ch05-inner-product        # Inner Product and Orthogonality
+
+# ── Ch6. 큐비트는 벡터다 ──────────────────────────────────────
+render "$STATE" 11 ch06-qubit-0-1            # 1 qubit state |0⟩, |1⟩ + statevector
+render "$STATE" 13 ch06-superposition        # 1 qubit superposition |+⟩
+
+# ── Ch7. 기저와 힐베르트 공간 ─────────────────────────────────
+render "$STATE" 21 ch07-basis-vectors        # Basis / Orthonormal Basis
+render "$STATE" 23 ch07-x-basis              # X basis
+
+# ── Ch8. 텐서곱 ───────────────────────────────────────────────
+render "$STATE" 29 ch08-kronecker-product    # Kronecker product of two matrices
+render "$STATE" 32 ch08-2qubit-basis         # 2-qubit computational basis
+render "$STATE" 34 ch08-4qubit-half-adder    # 4-qubit states in half-adder
+
+# ── Ch9. 양자 연산은 행렬이다 ─────────────────────────────────
+render "$STATE" 39 ch09-transpose-hermitian  # inverse / transpose / Hermitian transpose
+render "$STATE" 42 ch09-pauli-operators      # Pauli operators are Hermitian
+
+echo "✅ 추출 완료. public/figures/ 를 확인하세요."
