@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { MDXProvider } from '@mdx-js/react';
 
+import 'katex/dist/katex.min.css';
 import './styles/theme.css';
 import './styles/global.css';
 

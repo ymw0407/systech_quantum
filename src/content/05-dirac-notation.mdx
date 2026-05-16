@@ -25,17 +25,17 @@
 
 ket은 4장에서 본 **열벡터** 다. 1큐비트 상태라면 원소 2개짜리 열벡터다.
 
-<Eq label="ket = 열벡터">
-|ψ⟩ = [ α ; β ]      (α, β 는 복소수)
-</Eq>
+$$
+|\psi\rangle = \begin{bmatrix} \alpha \\ \beta \end{bmatrix} \qquad (\alpha,\,\beta \in \mathbb{C})
+$$
 
 ### bra = ket을 눕히고 켤레를 씌운 것
 
 bra는 ket을 **행벡터로 눕히고, 각 원소에 켤레** 를 씌운 것이다.
 
-<Eq label="bra = 켤레전치(행벡터)">
-|ψ⟩ = [ α ; β ]   이면   ⟨ψ| = [ α*  β* ]
-</Eq>
+$$
+|\psi\rangle = \begin{bmatrix} \alpha \\ \beta \end{bmatrix} \quad\Longrightarrow\quad \langle\psi| = \begin{bmatrix} \alpha^{*} & \beta^{*} \end{bmatrix}
+$$
 
 예를 들어 `|ψ⟩ = [ (1/√2)i ; −(1/√2)i ]` 이면, 각 원소의 켤레를 취해
 `⟨ψ| = [ −(1/√2)i ,  (1/√2)i ]` 이다. (`( (1/√2)i )* = −(1/√2)i` 이므로.)
@@ -70,9 +70,9 @@ bra와 ket을 나란히 붙이면 **내적(inner product)** 이 된다. `⟨φ|`
 `|ψ⟩ = [α; β]`, `|φ⟩ = [γ; δ]` 라면, `⟨φ|` 는 `[γ*  δ*]` 이므로 행벡터 × 열벡터로
 계산된다.
 
-<Eq label="내적 ⟨φ|ψ⟩">
-⟨φ|ψ⟩ = [ γ*  δ* ] · [ α ; β ] = γ*·α + δ*·β
-</Eq>
+$$
+\langle\phi|\psi\rangle = \begin{bmatrix} \gamma^{*} & \delta^{*} \end{bmatrix} \begin{bmatrix} \alpha \\ \beta \end{bmatrix} = \gamma^{*}\alpha + \delta^{*}\beta
+$$
 
 ### 직교 (orthogonal)
 
@@ -102,9 +102,9 @@ bra와 ket을 나란히 붙이면 **내적(inner product)** 이 된다. `⟨φ|`
 내적의 마지막 성질 — `⟨φ|φ⟩ ≥ 0` — 덕분에 벡터의 **norm(크기)** 을 내적으로
 정의할 수 있다.
 
-<Eq label="norm = 자기 자신과의 내적의 제곱근">
-|φ| = √( ⟨φ|φ⟩ ) ≥ 0
-</Eq>
+$$
+\|\phi\| = \sqrt{\langle\phi|\phi\rangle} \;\geq\; 0
+$$
 
 `|φ| = 1` 인 벡터, 즉 크기가 1인 벡터를 **단위 벡터(unit vector)** 라 한다.
 

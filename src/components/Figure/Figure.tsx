@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import * as s from './Figure.css';
 
 function resolveSrc(src: string | undefined): string | undefined {
@@ -14,18 +14,22 @@ export function Figure({
   alt,
   caption,
   source,
+  children,
 }: {
   src?: string;
   alt?: string;
   caption?: string;
   source?: string;
+  children?: ReactNode;
 }) {
   const [failed, setFailed] = useState(false);
   const resolved = resolveSrc(src);
 
   return (
     <figure className={s.figure}>
-      {resolved && !failed ? (
+      {children ? (
+        <div className={s.svgBox}>{children}</div>
+      ) : resolved && !failed ? (
         <img
           className={s.img}
           src={resolved}

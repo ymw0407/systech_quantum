@@ -9,13 +9,45 @@
 `V` 의 기저가 `{|vᵢ⟩}`, `W` 의 기저가 `{|wⱼ⟩}` 라면, `V ⊗ W` 의 기저는 둘을 짝지은
 `{ |vᵢ⟩ ⊗ |wⱼ⟩ }` 이다. 가장 중요한 결과는 차원이다.
 
-<Eq label="텐서곱 공간의 차원 — 곱해진다">
-dim(V ⊗ W) = (dim V) × (dim W)
-</Eq>
+$$
+\dim(V \otimes W) = (\dim V) \times (\dim W)
+$$
 
 > **차원이 곱셈으로 커진다.** 큐비트 1개는 2차원, 2개는 `2×2 = 4`차원, `n`개는 `2ⁿ`
 > 차원. 큐비트가 늘면 상태 공간이 **지수적으로** 커진다 — 이것이 양자컴퓨팅이 강력한
 > 근본 이유다.
+
+<Figure
+  caption="큐비트가 하나 늘 때마다 상태 공간의 차원은 두 배로 커진다. 1·2·3·4·5큐비트는 각각 2·4·8·16·32 차원 — 막대(작은 사각형 개수)로 직접 비교할 수 있다. 50큐비트 정도면 차원이 약 10¹⁵, 고전 컴퓨터 메모리로는 담을 수도 없는 규모가 된다."
+>
+  <svg viewBox="0 0 540 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="큐비트 개수에 따른 상태 공간 차원 증가" style={{ width: '100%', maxWidth: '660px', height: 'auto' }}>
+    <defs>
+      <pattern id="dim-sq" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+        <rect width="8" height="8" fill="#a78bfa" rx="1" />
+      </pattern>
+    </defs>
+    <text x="270" y="20" fontSize="13" fontWeight="700" fill="currentColor" textAnchor="middle">큐비트 n 개 → 2ⁿ 차원 (지수적으로 커진다)</text>
+    <text x="20" y="50" fontSize="11" fill="currentColor" opacity="0.85">큐비트 1개</text>
+    <rect x="110" y="42" width="20" height="8" fill="url(#dim-sq)" />
+    <text x="495" y="50" fontSize="11" fill="currentColor" opacity="0.85" textAnchor="end">2¹ = 2 차원</text>
+    <text x="20" y="80" fontSize="11" fill="currentColor" opacity="0.85">큐비트 2개</text>
+    <rect x="110" y="72" width="40" height="8" fill="url(#dim-sq)" />
+    <text x="495" y="80" fontSize="11" fill="currentColor" opacity="0.85" textAnchor="end">2² = 4 차원</text>
+    <text x="20" y="110" fontSize="11" fill="currentColor" opacity="0.85">큐비트 3개</text>
+    <rect x="110" y="102" width="80" height="8" fill="url(#dim-sq)" />
+    <text x="495" y="110" fontSize="11" fill="currentColor" opacity="0.85" textAnchor="end">2³ = 8 차원</text>
+    <text x="20" y="140" fontSize="11" fill="currentColor" opacity="0.85">큐비트 4개</text>
+    <rect x="110" y="132" width="160" height="8" fill="url(#dim-sq)" />
+    <text x="495" y="140" fontSize="11" fill="currentColor" opacity="0.85" textAnchor="end">2⁴ = 16 차원</text>
+    <text x="20" y="170" fontSize="11" fill="currentColor" opacity="0.85">큐비트 5개</text>
+    <rect x="110" y="162" width="320" height="8" fill="url(#dim-sq)" />
+    <text x="495" y="170" fontSize="11" fill="currentColor" opacity="0.85" textAnchor="end">2⁵ = 32 차원</text>
+    <line x1="20" y1="195" x2="520" y2="195" stroke="currentColor" strokeWidth="0.8" strokeDasharray="3 4" opacity="0.25" />
+    <text x="20" y="222" fontSize="11" fill="currentColor" opacity="0.85">큐비트 50개</text>
+    <text x="110" y="222" fontSize="13" fontWeight="700" fill="#a78bfa">2⁵⁰ ≈ 10¹⁵ 차원</text>
+    <text x="20" y="250" fontSize="10" fill="currentColor" opacity="0.7">↑ 한 양자 상태가 가진 정보량 — 고전 컴퓨터 메모리로는 담을 수 없는 규모</text>
+  </svg>
+</Figure>
 
 표기는 `|vᵢ⟩ ⊗ |wⱼ⟩` 를 줄여서 `|vᵢ⟩|wⱼ⟩` 또는 `|vᵢ, wⱼ⟩` 로 쓴다.
 
@@ -28,10 +60,9 @@ dim(V ⊗ W) = (dim V) × (dim W)
 열벡터 `α = [α₁; …; αₙ]` 와 `β = [β₁; …; βₘ]` 의 Kronecker 곱은, **`α` 의 각 원소에
 `β` 벡터 전체를 곱해서 세로로 쭉 이어 붙인** 것이다.
 
-<Eq label="벡터의 Kronecker 곱">
-α ⊗ β = [ α₁·β ; α₂·β ; … ; αₙ·β ]
-      = [ α₁β₁ ; … ; α₁βₘ ; α₂β₁ ; … ; αₙβₘ ]
-</Eq>
+$$
+\alpha \otimes \beta = \begin{bmatrix} \alpha_1\,\beta \\ \alpha_2\,\beta \\ \vdots \\ \alpha_n\,\beta \end{bmatrix} = \begin{bmatrix} \alpha_1\beta_1 \\ \vdots \\ \alpha_1\beta_m \\ \alpha_2\beta_1 \\ \vdots \\ \alpha_n\beta_m \end{bmatrix}
+$$
 
 원소 `n`개와 `m`개를 곱하면 `n·m`개짜리 벡터가 나온다.
 
@@ -50,9 +81,9 @@ dim(V ⊗ W) = (dim V) × (dim W)
 
 Kronecker 곱의 가장 쓸모 있는 성질:
 
-<Eq label="텐서곱은 따로따로 적용된다">
-(A ⊗ B)(α ⊗ β) = (Aα) ⊗ (Bβ)
-</Eq>
+$$
+(A \otimes B)(\alpha \otimes \beta) = (A\alpha) \otimes (B\beta)
+$$
 
 > "묶인 상태에 묶인 연산을 하면, 각 부분에 따로 연산한 결과를 다시 묶은 것과 같다." 한
 > 큐비트에 게이트를 거는 것이 다른 큐비트에 영향을 안 주는 이유가 이 규칙이다.
@@ -62,12 +93,14 @@ Kronecker 곱의 가장 쓸모 있는 성질:
 `|0⟩ = [1;0]`, `|1⟩ = [0;1]` 로부터 2큐비트의 계산 기저 네 개를 만든다. 큐비트 순서는
 `q₁q₀` (왼쪽이 q1, 오른쪽이 q0).
 
-<Eq label="2큐비트 계산 기저">
-|00⟩ = |0⟩⊗|0⟩ = [1;0]⊗[1;0] = [ 1 ; 0 ; 0 ; 0 ]
-|01⟩ = |0⟩⊗|1⟩ = [1;0]⊗[0;1] = [ 0 ; 1 ; 0 ; 0 ]
-|10⟩ = |1⟩⊗|0⟩ = [0;1]⊗[1;0] = [ 0 ; 0 ; 1 ; 0 ]
-|11⟩ = |1⟩⊗|1⟩ = [0;1]⊗[0;1] = [ 0 ; 0 ; 0 ; 1 ]
-</Eq>
+$$
+\begin{aligned}
+|00\rangle &= |0\rangle \otimes |0\rangle = \begin{bmatrix} 1 \\ 0 \end{bmatrix} \otimes \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \\ 0 \\ 0 \end{bmatrix} \\[3pt]
+|01\rangle &= |0\rangle \otimes |1\rangle = \begin{bmatrix} 1 \\ 0 \end{bmatrix} \otimes \begin{bmatrix} 0 \\ 1 \end{bmatrix} = \begin{bmatrix} 0 \\ 1 \\ 0 \\ 0 \end{bmatrix} \\[3pt]
+|10\rangle &= |1\rangle \otimes |0\rangle = \begin{bmatrix} 0 \\ 1 \end{bmatrix} \otimes \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 1 \\ 0 \end{bmatrix} \\[3pt]
+|11\rangle &= |1\rangle \otimes |1\rangle = \begin{bmatrix} 0 \\ 1 \end{bmatrix} \otimes \begin{bmatrix} 0 \\ 1 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \end{bmatrix}
+\end{aligned}
+$$
 
 `|01⟩` 의 계산을 손으로 따라가 보자. `α = [1;0]`, `β = [0;1]` 이면,
 `α ⊗ β = [ 1·[0;1] ; 0·[0;1] ] = [ 0; 1; 0; 0 ]`. 두 번째 자리만 1 — 이진수 `01` 이
@@ -81,9 +114,9 @@ Kronecker 곱의 가장 쓸모 있는 성질:
 
 그리고 임의의 2큐비트 상태는 이 네 기저의 선형 결합이다.
 
-<Eq>
-|ψ⟩ = c₀₀|00⟩ + c₀₁|01⟩ + c₁₀|10⟩ + c₁₁|11⟩ = [ c₀₀ ; c₀₁ ; c₁₀ ; c₁₁ ]
-</Eq>
+$$
+|\psi\rangle = c_{00}|00\rangle + c_{01}|01\rangle + c_{10}|10\rangle + c_{11}|11\rangle = \begin{bmatrix} c_{00} \\ c_{01} \\ c_{10} \\ c_{11} \end{bmatrix}
+$$
 
 <Callout kind="note">
 `[0]`, `[0;0]`, `[1;0;0;0]`, `|0⟩⊗|0⟩` 중에서 2큐비트 상태 `|00⟩` 은 어느 것일까?
@@ -98,16 +131,16 @@ Kronecker 곱의 가장 쓸모 있는 성질:
 
 **시작 상태** `|ψ₀⟩` 는 네 큐비트가 모두 `|0⟩` 인 텐서곱:
 
-<Eq>
-|ψ₀⟩ = |0000⟩ = |0⟩⊗|0⟩⊗|0⟩⊗|0⟩ = [ 1 ; 0 ; 0 ; … ; 0 ]   (16칸 중 첫 칸만 1)
-</Eq>
+$$
+|\psi_0\rangle = |0000\rangle = |0\rangle \otimes |0\rangle \otimes |0\rangle \otimes |0\rangle = \begin{bmatrix} 1 & 0 & 0 & \cdots & 0 \end{bmatrix}^{\mathsf{T}} \quad \text{(16칸 중 첫 칸만 1)}
+$$
 
 **H 두 개를 건 뒤** `|ψ₁⟩` — 3장에서 `½(|0000⟩+|0001⟩+|0010⟩+|0011⟩)` 라고 쓴 그
 상태는, 16칸짜리 벡터로는:
 
-<Eq label="ψ₁ 의 16차원 벡터 표현">
-|ψ₁⟩ = [ .5 ; .5 ; .5 ; .5 ; 0 ; 0 ; … ; 0 ]   (앞 네 칸이 0.5, 나머지 12칸 0)
-</Eq>
+$$
+|\psi_1\rangle = \begin{bmatrix} 0.5 & 0.5 & 0.5 & 0.5 & 0 & 0 & \cdots & 0 \end{bmatrix}^{\mathsf{T}} \quad \text{(앞 네 칸이 0.5, 나머지 12칸 0)}
+$$
 
 확인: `4 × |0.5|² = 4 × 0.25 = 1`. ✓ 단위 벡터다.
 

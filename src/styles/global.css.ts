@@ -42,8 +42,8 @@ globalStyle('h1', {
 
 globalStyle('h2', {
   fontSize: vars.fontSize['2xl'],
-  marginTop: vars.space[16],
-  marginBottom: vars.space[5],
+  marginTop: vars.space[20],
+  marginBottom: vars.space[6],
   paddingLeft: vars.space[4],
   letterSpacing: '-0.015em',
   borderLeft: `4px solid ${vars.color.accent}`,
@@ -58,18 +58,18 @@ globalStyle('h2', {
 
 globalStyle('h3', {
   fontSize: vars.fontSize.xl,
-  marginTop: vars.space[10],
-  marginBottom: vars.space[3],
+  marginTop: vars.space[12],
+  marginBottom: vars.space[4],
   color: vars.color.heading,
   '@media': {
-    '(max-width: 600px)': { fontSize: vars.fontSize.lg, marginTop: vars.space[8] },
+    '(max-width: 600px)': { fontSize: vars.fontSize.lg, marginTop: vars.space[10] },
   },
 });
 
 globalStyle('h4', {
   fontSize: vars.fontSize.lg,
-  marginTop: vars.space[6],
-  marginBottom: vars.space[2],
+  marginTop: vars.space[8],
+  marginBottom: vars.space[3],
   color: vars.color.heading,
 });
 
@@ -207,4 +207,25 @@ globalStyle('img', {
 globalStyle('::selection', {
   background: vars.color.accentSoft,
   color: vars.color.accent,
+});
+
+// ─── KaTeX (math 블록) ───────────────────────────────────────
+// remark-math + rehype-katex 가 $$ ... $$ 를 .katex-display 로 감싸 준다.
+// 기본 0.5em 여백보다 좀 더 넉넉히, 그리고 좁은 화면에서 가로 스크롤 가능하게.
+globalStyle('.katex-display', {
+  margin: `${vars.space[6]} 0`,
+  padding: `${vars.space[3]} ${vars.space[4]}`,
+  background: vars.color.eqBg,
+  border: `1px solid ${vars.color.eqBorder}`,
+  borderRadius: vars.radius.md,
+  overflowX: 'auto',
+  overflowY: 'hidden',
+});
+globalStyle('.katex', {
+  color: vars.color.heading,
+  fontSize: '1.05em',
+});
+// 인라인 수식은 박스 없이, 글자 그대로 흐름에 녹게
+globalStyle(':not(.katex-display) > .katex', {
+  fontSize: '1em',
 });

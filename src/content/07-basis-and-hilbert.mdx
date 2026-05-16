@@ -23,9 +23,9 @@
 
 이 둘을 한 식으로 쓰면:
 
-<Eq label="정규직교 조건 (δ는 Kronecker 델타)">
-⟨vᵢ|vⱼ⟩ = δᵢⱼ ,    δᵢⱼ = 1 (i = j 일 때),   δᵢⱼ = 0 (i ≠ j 일 때)
-</Eq>
+$$
+\langle v_i | v_j \rangle = \delta_{ij} = \begin{cases} 1 & (i = j) \\ 0 & (i \ne j) \end{cases}
+$$
 
 `δᵢⱼ` 는 **Kronecker 델타(크로네커 델타)** — 두 첨자가 같으면 1, 다르면 0인 함수다. 즉 "자기 자신과의
 내적은 1, 다른 것과의 내적은 0".
@@ -41,11 +41,13 @@
 `{|0⟩, |1⟩}` 가 바로 1큐비트의 표준 정규직교 기저다. 이를 **계산 기저(computational
 basis)** 또는 **Z 기저** 라 한다. 직접 확인해 보자.
 
-<Eq label="|0⟩, |1⟩ 은 정규직교">
-⟨0|0⟩ = 1·1* + 0·0* = 1
-⟨1|1⟩ = 0·0* + 1·1* = 1
-⟨1|0⟩ = 1·0* + 0·1* = 0
-</Eq>
+$$
+\begin{aligned}
+\langle 0 | 0 \rangle &= 1\cdot 1^{*} + 0\cdot 0^{*} = 1 \\
+\langle 1 | 1 \rangle &= 0\cdot 0^{*} + 1\cdot 1^{*} = 1 \\
+\langle 1 | 0 \rangle &= 1\cdot 0^{*} + 0\cdot 1^{*} = 0
+\end{aligned}
+$$
 
 자기 내적은 1, 서로 간 내적은 0 → 정규직교 기저가 맞다.
 
@@ -55,15 +57,15 @@ basis)** 또는 **Z 기저** 라 한다. 직접 확인해 보자.
 
 `|ψ⟩ = α|0⟩ + β|1⟩` 일 때,
 
-<Eq label="계수 = 기저와의 내적">
-α = ⟨0|ψ⟩        β = ⟨1|ψ⟩
-</Eq>
+$$
+\alpha = \langle 0 | \psi \rangle, \qquad \beta = \langle 1 | \psi \rangle
+$$
 
 일반적으로 정규직교 기저 `{|vᵢ⟩}` 에 대해:
 
-<Eq label="기저 전개 공식">
-|ψ⟩ = Σᵢ zᵢ |vᵢ⟩  ,   여기서  zᵢ = ⟨vᵢ|ψ⟩
-</Eq>
+$$
+|\psi\rangle = \sum_{i} z_i\,|v_i\rangle, \qquad z_i = \langle v_i | \psi \rangle
+$$
 
 > "각 기저 벡터와 내적해서 그 방향 성분을 뽑고, 다시 전부 더하면 원래 벡터" — 정규직교
 > 기저에서는 이게 항상 성립한다.
@@ -75,10 +77,12 @@ basis)** 또는 **Z 기저** 라 한다. 직접 확인해 보자.
 
 ### X 기저
 
-<Eq label="X 기저">
-|+⟩ = (1/√2)|0⟩ + (1/√2)|1⟩ = [ 1/√2 ;  1/√2 ]
-|−⟩ = (1/√2)|0⟩ − (1/√2)|1⟩ = [ 1/√2 ; −1/√2 ]
-</Eq>
+$$
+\begin{aligned}
+|{+}\rangle &= \tfrac{1}{\sqrt{2}}\,|0\rangle + \tfrac{1}{\sqrt{2}}\,|1\rangle = \begin{bmatrix} 1/\sqrt{2} \\ 1/\sqrt{2} \end{bmatrix} \\[2pt]
+|{-}\rangle &= \tfrac{1}{\sqrt{2}}\,|0\rangle - \tfrac{1}{\sqrt{2}}\,|1\rangle = \begin{bmatrix} 1/\sqrt{2} \\ -1/\sqrt{2} \end{bmatrix}
+\end{aligned}
+$$
 
 정규직교인지 확인: `⟨+|+⟩ = 1`, `⟨−|−⟩ = 1`, `⟨−|+⟩ = 0`. ✓ `{|+⟩, |−⟩}` 도 어엿한
 정규직교 기저다. (1부에서 H 게이트의 출력으로 만났던 그 상태들이다.)
@@ -91,10 +95,12 @@ basis)** 또는 **Z 기저** 라 한다. 직접 확인해 보자.
 
 ### Y 기저
 
-<Eq label="Y 기저">
-|+i⟩ = (1/√2)|0⟩ + (i/√2)|1⟩ = [ 1/√2 ;  i/√2 ]
-|−i⟩ = (1/√2)|0⟩ − (i/√2)|1⟩ = [ 1/√2 ; −i/√2 ]
-</Eq>
+$$
+\begin{aligned}
+|{+i}\rangle &= \tfrac{1}{\sqrt{2}}\,|0\rangle + \tfrac{i}{\sqrt{2}}\,|1\rangle = \begin{bmatrix} 1/\sqrt{2} \\ i/\sqrt{2} \end{bmatrix} \\[2pt]
+|{-i}\rangle &= \tfrac{1}{\sqrt{2}}\,|0\rangle - \tfrac{i}{\sqrt{2}}\,|1\rangle = \begin{bmatrix} 1/\sqrt{2} \\ -i/\sqrt{2} \end{bmatrix}
+\end{aligned}
+$$
 
 이것도 `⟨−i|+i⟩ = 0`, `⟨+i|+i⟩ = ⟨−i|−i⟩ = 1` 이므로 정규직교 기저다.
 
@@ -106,6 +112,47 @@ basis)** 또는 **Z 기저** 라 한다. 직접 확인해 보자.
 - **X 기저로**: `|+i⟩ = ((1+i)/2)|+⟩ + ((1−i)/2)|−⟩`
 
 벡터 자체는 하나인데, **어떤 기저로 보느냐** 에 따라 계수(좌표)가 달라진다.
+
+<Figure
+  caption="같은 벡터 (이번 예에서는 |+⟩) 를 두 좌표계로 본 그림. 왼쪽 Z 기저 좌표에서는 α=β=1/√2 (두 축에 똑같이 걸침), 오른쪽 X 기저 좌표에서는 축을 45° 돌렸기 때문에 같은 벡터가 |+⟩ 축에만 딱 걸쳐 γ=1, δ=0. 벡터는 그대로, 좌표계만 다르다."
+>
+  <svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="같은 벡터를 Z 기저와 X 기저로 본 비교 — 좌표계만 회전" style={{ width: '100%', maxWidth: '620px', height: 'auto' }}>
+    <defs>
+      <marker id="bs-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#a78bfa" />
+      </marker>
+    </defs>
+    <text x="120" y="22" fontSize="13" fontWeight="700" fill="currentColor" textAnchor="middle">Z 기저로 보면</text>
+    <line x1="40" y1="180" x2="210" y2="180" stroke="currentColor" strokeWidth="1.4" opacity="0.5" />
+    <line x1="120" y1="90" x2="120" y2="250" stroke="currentColor" strokeWidth="1.4" opacity="0.5" />
+    <text x="216" y="185" fontSize="13" fontWeight="600" fill="currentColor" opacity="0.85">|0⟩</text>
+    <text x="113" y="86" fontSize="13" fontWeight="600" fill="currentColor" opacity="0.85">|1⟩</text>
+    <circle cx="120" cy="180" r="2.5" fill="currentColor" />
+    <line x1="180" y1="180" x2="180" y2="120" stroke="#a78bfa" strokeWidth="1" strokeDasharray="3 4" opacity="0.6" />
+    <line x1="120" y1="120" x2="180" y2="120" stroke="#a78bfa" strokeWidth="1" strokeDasharray="3 4" opacity="0.6" />
+    <line x1="120" y1="180" x2="180" y2="120" stroke="#a78bfa" strokeWidth="2.8" markerEnd="url(#bs-arr)" />
+    <text x="190" y="110" fontSize="14" fontWeight="700" fill="#a78bfa">|ψ⟩</text>
+    <text x="150" y="200" fontSize="11" fill="currentColor" opacity="0.85" textAnchor="middle">α = 1/√2</text>
+    <text x="113" y="153" fontSize="11" fill="currentColor" opacity="0.85" textAnchor="end">β = 1/√2</text>
+    <text x="120" y="282" fontSize="11" fill="currentColor" opacity="0.85" textAnchor="middle" fontStyle="italic">|ψ⟩ = (1/√2)|0⟩ + (1/√2)|1⟩</text>
+
+    <line x1="250" y1="20" x2="250" y2="290" stroke="currentColor" strokeWidth="1" opacity="0.18" />
+
+    <text x="375" y="22" fontSize="13" fontWeight="700" fill="currentColor" textAnchor="middle">X 기저로 보면 (축이 45° 회전)</text>
+    <line x1="300" y1="180" x2="450" y2="180" stroke="currentColor" strokeWidth="0.8" strokeDasharray="2 5" opacity="0.2" />
+    <line x1="375" y1="105" x2="375" y2="250" stroke="currentColor" strokeWidth="0.8" strokeDasharray="2 5" opacity="0.2" />
+    <line x1="300" y1="255" x2="450" y2="105" stroke="currentColor" strokeWidth="1.4" opacity="0.5" />
+    <line x1="300" y1="105" x2="450" y2="255" stroke="currentColor" strokeWidth="1.4" opacity="0.5" />
+    <text x="455" y="102" fontSize="13" fontWeight="600" fill="currentColor" opacity="0.85">|+⟩</text>
+    <text x="452" y="265" fontSize="13" fontWeight="600" fill="currentColor" opacity="0.85">|−⟩</text>
+    <circle cx="375" cy="180" r="2.5" fill="currentColor" />
+    <line x1="375" y1="180" x2="435" y2="120" stroke="#a78bfa" strokeWidth="2.8" markerEnd="url(#bs-arr)" />
+    <text x="442" y="120" fontSize="14" fontWeight="700" fill="#a78bfa">|ψ⟩</text>
+    <text x="405" y="160" fontSize="11" fill="currentColor" opacity="0.85">γ = 1</text>
+    <text x="345" y="220" fontSize="11" fill="currentColor" opacity="0.55">δ = 0</text>
+    <text x="375" y="282" fontSize="11" fill="currentColor" opacity="0.85" textAnchor="middle" fontStyle="italic">|ψ⟩ = 1·|+⟩ + 0·|−⟩</text>
+  </svg>
+</Figure>
 
 <Callout kind="tip">
 지도를 떠올리자. 한 도시의 위치는 정해져 있지만, 위도·경도로 적을 수도 있고 다른 도시
@@ -119,9 +166,9 @@ basis)** 또는 **Z 기저** 라 한다. 직접 확인해 보자.
 서로 다른 두 정규직교 기저 `{|vᵢ⟩}` 와 `{|wⱼ⟩}` 사이의 관계는 하나의 행렬 `U` 로
 나타난다.
 
-<Eq label="기저 변환">
-|vᵢ⟩ = Σⱼ Uⱼᵢ |wⱼ⟩  ,   Uⱼᵢ = ⟨wⱼ|vᵢ⟩
-</Eq>
+$$
+|v_i\rangle = \sum_{j} U_{ji}\,|w_j\rangle, \qquad U_{ji} = \langle w_j | v_i \rangle
+$$
 
 이 `U` 는 **unitary 행렬(유니터리 행렬)** 이라는 특별한 행렬이다 — 정확히 9장에서
 다룬다. 지금은 "기저를 갈아끼우는 일도 결국 행렬 곱"이라는 것만 기억하면 된다.
@@ -133,16 +180,16 @@ basis)** 또는 **Z 기저** 라 한다. 직접 확인해 보자.
 
 정규직교 기저 `{|v₁⟩, …, |vₙ⟩}` 가 있으면, 임의의 벡터는:
 
-<Eq label="n차원 벡터 = 열벡터">
-|φ⟩ = Σᵢ φᵢ |vᵢ⟩ = [ φ₁ ; φ₂ ; … ; φₙ ]  ,   φᵢ = ⟨vᵢ|φ⟩
-</Eq>
+$$
+|\phi\rangle = \sum_{i} \phi_i\,|v_i\rangle = \begin{bmatrix} \phi_1 \\ \phi_2 \\ \vdots \\ \phi_n \end{bmatrix}, \qquad \phi_i = \langle v_i | \phi \rangle
+$$
 
 ket은 원소 `n`개짜리 **열벡터**, bra는 켤레를 씌운 **행벡터** `⟨φ| = [φ₁* φ₂* … φₙ*]`.
 그리고 두 벡터의 내적은:
 
-<Eq label="n차원 내적">
-⟨φ|ψ⟩ = Σⱼ φⱼ* ψⱼ
-</Eq>
+$$
+\langle\phi|\psi\rangle = \sum_{j} \phi_j^{*}\,\psi_j
+$$
 
 5장에서 2차원으로 본 내적이 그대로 `n`차원으로 늘어난 것뿐이다.
 

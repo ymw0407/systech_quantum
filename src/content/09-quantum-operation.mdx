@@ -32,10 +32,12 @@
 
 힐베르트 공간 `V` 위의 연산자 `L̂ : V → V` 가 **선형** 이라는 것은 다음 두 조건이다.
 
-<Eq label="선형 연산자의 조건">
-(a)  L̂(|φ⟩ + |ψ⟩) = L̂|φ⟩ + L̂|ψ⟩
-(b)  L̂(z|φ⟩) = z(L̂|φ⟩)
-</Eq>
+$$
+\begin{aligned}
+\text{(a)} \quad & \hat{L}\bigl(|\phi\rangle + |\psi\rangle\bigr) = \hat{L}|\phi\rangle + \hat{L}|\psi\rangle \\
+\text{(b)} \quad & \hat{L}\bigl(z\,|\phi\rangle\bigr) = z\,\bigl(\hat{L}|\phi\rangle\bigr)
+\end{aligned}
+$$
 
 3장에서 "양자 게이트는 선형이라 중첩 입력을 한 번에 처리한다"고 했던 그 선형성이, 정확히
 이 두 식이다.
@@ -44,9 +46,9 @@
 
 선형 연산자는 기저에 대한 작용만 정하면 완전히 결정된다. 정규직교 기저 `{|vᵢ⟩}` 에 대해:
 
-<Eq label="연산자의 행렬 성분">
-L̂|vᵢ⟩ = Σⱼ Lⱼᵢ |vⱼ⟩  ,   Lⱼᵢ = ⟨vⱼ| L̂ |vᵢ⟩
-</Eq>
+$$
+\hat{L}\,|v_i\rangle = \sum_{j} L_{ji}\,|v_j\rangle, \qquad L_{ji} = \langle v_j |\,\hat{L}\,| v_i \rangle
+$$
 
 `Lⱼᵢ = ⟨vⱼ|L̂|vᵢ⟩` 가 그 행렬의 `(j, i)` 원소다. "bra — 연산자 — ket" 을 끼워 넣으면
 행렬 성분이 하나씩 떨어진다.
@@ -71,9 +73,9 @@ bra가 ket의 Hermitian 전치였던 것(5장)과 같은 연산이다.
 
 ## unitary 연산자 — 양자 게이트의 정체
 
-<Eq label="unitary 조건">
-A† = A⁻¹      즉      A†A = AA† = I
-</Eq>
+$$
+A^{\dagger} = A^{-1} \qquad \Longleftrightarrow \qquad A^{\dagger}A = A\,A^{\dagger} = I
+$$
 
 > Hermitian 전치가 곧 역행렬인 행렬을 **unitary** 라 한다. **모든 양자
 > 게이트는 unitary 행렬** 이다.
@@ -88,10 +90,9 @@ unitary가 중요한 이유:
 
 `|0⟩` 을 `|+i⟩` 로, `|1⟩` 을 `|−i⟩` 로 보내는 연산자를 행렬로 적으면:
 
-<Eq label="unitary 연산자 U">
-U = [ 1/√2    1/√2  ]
-    [ i/√2   −i/√2  ]
-</Eq>
+$$
+U = \begin{bmatrix} 1/\sqrt{2} & 1/\sqrt{2} \\ i/\sqrt{2} & -i/\sqrt{2} \end{bmatrix}
+$$
 
 직접 확인할 수 있다: `U` 의 첫 열이 `|+i⟩ = [1/√2; i/√2]`, 둘째 열이
 `|−i⟩ = [1/√2; −i/√2]`. 그리고 `U†U = I` 가 성립한다 → `U` 는 unitary. 7장에서 "기저를
@@ -101,9 +102,9 @@ U = [ 1/√2    1/√2  ]
 
 unitary와 짝을 이루는 또 다른 특별한 행렬이 있다.
 
-<Eq label="Hermitian 조건">
-A† = A
-</Eq>
+$$
+A^{\dagger} = A
+$$
 
 > Hermitian 전치가 자기 자신과 같은 행렬을 **Hermitian** 이라 한다.
 
@@ -118,10 +119,9 @@ Hermitian 연산자는 `⟨ψ|Ĥ|ψ⟩` 가 항상 **실수** 라는 성질을 �
 대표적인 예가 **Pauli 연산자(파울리 연산자)** 다. 1부에서 만난 X 게이트가 Pauli X(`σₓ`)다. Y 게이트는
 `σᵧ`:
 
-<Eq label="Pauli Y 연산자">
-σᵧ = [ 0  −i ]
-     [ i   0 ]
-</Eq>
+$$
+\sigma_y = \begin{bmatrix} 0 & -i \\ i & 0 \end{bmatrix}
+$$
 
 <Figure
   src="/figures/ch09-pauli-operators.png"
@@ -142,9 +142,9 @@ Hermitian 연산자는 `⟨ψ|Ĥ|ψ⟩` 가 항상 **실수** 라는 성질을 �
 큐비트가 여러 개일 때의 연산은 8장의 텐서곱으로 조립된다. `V` 위의 연산자 `Â` 와 `W` 위의
 `B̂` 가 있으면, 전체 공간 `V⊗W` 위의 연산자는:
 
-<Eq label="텐서곱 연산자">
-(Â ⊗ B̂)(|vᵢ⟩ ⊗ |wⱼ⟩) = (Â|vᵢ⟩) ⊗ (B̂|wⱼ⟩)
-</Eq>
+$$
+(\hat{A} \otimes \hat{B})\bigl(|v_i\rangle \otimes |w_j\rangle\bigr) = \bigl(\hat{A}|v_i\rangle\bigr) \otimes \bigl(\hat{B}|w_j\rangle\bigr)
+$$
 
 그리고 `Â ⊗ B̂` 의 행렬 표현은 두 행렬의 **Kronecker 곱** `A ⊗ B` 다. 1부에서 "X 게이트를
 q[0]에만 올린다" 고 했던 것은, 실제로는 `X ⊗ I ⊗ I ⊗ I` 라는 `16×16` unitary 행렬을
