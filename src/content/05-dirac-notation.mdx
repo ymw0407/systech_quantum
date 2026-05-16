@@ -74,6 +74,88 @@ $$
 \langle\phi|\psi\rangle = \begin{bmatrix} \gamma^{*} & \delta^{*} \end{bmatrix} \begin{bmatrix} \alpha \\ \beta \end{bmatrix} = \gamma^{*}\alpha + \delta^{*}\beta
 $$
 
+### 내적이 의미하는 것 — "겹침"
+
+수식은 익혔는데, **이 숫자가 도대체 뭘 말해 주는지** 가 진짜 핵심이다. 한 문장으로:
+
+> **내적 `⟨φ|ψ⟩` 는 두 벡터가 얼마나 같은 방향으로 겹치는지** 를 재는 숫자다.
+
+#### 실벡터로 직관 잡기
+
+먼저 익숙한 실수 벡터부터. 평면 위 두 화살표 $\vec{A}, \vec{B}$ 의 내적은 고등학교에서 본
+바로 그것이다.
+
+$$
+\vec{A} \cdot \vec{B} = \|\vec{A}\|\,\|\vec{B}\|\,\cos\theta
+$$
+
+`cos θ` 가 핵심이다. 두 벡터 사이 **각도** 만 보면 된다.
+
+- **같은 방향** (θ = 0°) → cos = 1 → 내적이 **최대**
+- **수직(직교)** (θ = 90°) → cos = 0 → 내적이 **0**
+- **반대 방향** (θ = 180°) → cos = −1 → 내적이 **음수**
+
+그림으로 보면 내적은 한 벡터를 다른 벡터 방향으로 **드리워(projection) 본 길이** 다.
+
+<Figure
+  caption="실벡터 내적 = 한 벡터를 다른 벡터 방향으로 투영한 길이 × 다른 벡터의 길이. 두 벡터가 같은 방향을 향할수록 내적이 크고, 직교하면 0. 양자의 내적도 정확히 같은 직관 — 다만 결과가 복소수일 수 있다는 것만 다르다."
+>
+  <svg viewBox="0 0 380 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="두 벡터 A, B 사이 각도 θ 와 A 의 B 방향 투영 길이" style={{ width: '100%', maxWidth: '500px', height: 'auto' }}>
+    <defs>
+      <marker id="ip-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#a78bfa" />
+      </marker>
+    </defs>
+    <line x1="60" y1="180" x2="60" y2="180" stroke="currentColor" />
+    <line x1="60" y1="180" x2="180" y2="180" stroke="#a78bfa" strokeWidth="6" opacity="0.22" strokeLinecap="round" />
+    <line x1="60" y1="180" x2="240" y2="180" stroke="#a78bfa" strokeWidth="2.4" markerEnd="url(#ip-arr)" />
+    <text x="248" y="184" fontSize="14" fontWeight="700" fill="#a78bfa" fontStyle="italic">B</text>
+    <line x1="60" y1="180" x2="180" y2="95" stroke="#a78bfa" strokeWidth="2.4" markerEnd="url(#ip-arr)" />
+    <text x="188" y="90" fontSize="14" fontWeight="700" fill="#a78bfa" fontStyle="italic">A</text>
+    <line x1="180" y1="95" x2="180" y2="180" stroke="currentColor" strokeWidth="1" strokeDasharray="3 4" opacity="0.55" />
+    <path d="M 100 180 A 40 40 0 0 0 88 152" fill="none" stroke="currentColor" strokeWidth="1.2" opacity="0.6" />
+    <text x="100" y="170" fontSize="12" fill="currentColor" opacity="0.85" fontStyle="italic">θ</text>
+    <text x="120" y="200" fontSize="11" fill="currentColor" opacity="0.85" textAnchor="middle" fontStyle="italic">|A| · cos θ</text>
+    <text x="120" y="218" fontSize="10" fill="currentColor" opacity="0.65" textAnchor="middle">(투영 길이)</text>
+    <circle cx="60" cy="180" r="2.5" fill="currentColor" />
+    <circle cx="180" cy="180" r="2.2" fill="currentColor" opacity="0.6" />
+    <text x="310" y="125" fontSize="12" fill="currentColor" opacity="0.85" textAnchor="middle" fontStyle="italic">A · B</text>
+    <text x="310" y="145" fontSize="11" fill="currentColor" opacity="0.85" textAnchor="middle" fontStyle="italic">= |A| |B| cos θ</text>
+  </svg>
+</Figure>
+
+#### 양자 상태로 옮기면
+
+복소수 벡터(양자 상태)에서도 직관은 **똑같다.** 다만 결과가 복소수일 수 있다.
+
+> `⟨φ|ψ⟩` = "양자 상태 `|ψ⟩` 가 `|φ⟩` 와 얼마나 겹치는가" 를 잰 점수.
+
+특히 `|ψ⟩` 와 `|φ⟩` 가 둘 다 단위 벡터(즉 정상적인 양자 상태)이면, 그 점수의 크기는
+0~1 사이다.
+
+- `|⟨φ|ψ⟩| = 1` → 두 상태가 같다 (방향이 일치)
+- `|⟨φ|ψ⟩| = 0` → 완전히 다르다 (직교)
+- 그 사이 값 → 부분적으로 겹침
+
+#### 그래서 무엇이 좋은가 — Born rule 과 진폭
+
+이 "겹침 점수" 가 그냥 추상적인 숫자가 아니다. 양자역학의 가장 기본적인 측정 규칙이
+바로 여기에서 나온다.
+
+> **`|ψ⟩` 상태를 측정해서 `|φ⟩` 가 관측될 확률 = `|⟨φ|ψ⟩|²`** &nbsp;&nbsp;(Born rule)
+
+6장에서 `|ψ⟩ = α|0⟩ + β|1⟩` 의 계수가 곧 `α = ⟨0|ψ⟩`, `β = ⟨1|ψ⟩` 가 되는 것도 같은
+이유다. **`|ψ⟩` 가 `|0⟩` 방향으로 얼마나 겹치는지를 잰 것이 진폭** 이고, 그 절댓값 제곱이
+측정 확률이다.
+
+<Callout kind="summary">
+- **내적 = 두 벡터의 "닮음 점수".** 같은 방향이면 크고, 직교면 0
+- 실벡터: `A⃗ · B⃗ = |A⃗||B⃗| cos θ` — 한 벡터를 다른 벡터로 투영한 길이
+- 양자: `⟨φ|ψ⟩` = 상태 `|ψ⟩` 를 `|φ⟩` 의 눈금으로 읽었을 때 나오는 진폭
+- **Born rule**: 측정으로 `|φ⟩` 가 관측될 확률 = `|⟨φ|ψ⟩|²`
+- 그래서 다음 절의 **직교** 가 "측정해도 절대 헷갈리지 않는 두 상태" 라는 뜻이 된다
+</Callout>
+
 ### 직교 (orthogonal)
 
 > `⟨φ|ψ⟩ = 0` 이면, 두 벡터 `|φ⟩` 와 `|ψ⟩` 는 서로 **직교(orthogonal)** 한다.
