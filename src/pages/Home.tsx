@@ -19,8 +19,11 @@ export function Home() {
           <Link to={`/ch/${first.slug}`} className={s.primaryBtn}>
             1장부터 시작하기 →
           </Link>
+          <Link to="/quiz" className={s.secondaryBtn}>
+            ✎ 시험 대비 문제 풀기
+          </Link>
           <span className={s.heroMeta}>
-            「프로그래밍으로 배우는 양자컴퓨팅」 강의자료(임은진·권용경) 기반 · 전 9장
+            「프로그래밍으로 배우는 양자컴퓨팅」 강의자료(임은진·권용경) 기반 · 전 {chapters.length}장
           </span>
         </div>
       </section>

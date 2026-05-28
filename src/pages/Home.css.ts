@@ -76,6 +76,26 @@ export const primaryBtn = style({
   },
 });
 
+export const secondaryBtn = style({
+  display: 'inline-flex',
+  alignItems: 'center',
+  padding: `${vars.space[3]} ${vars.space[5]}`,
+  borderRadius: vars.radius.md,
+  background: vars.color.surface,
+  color: vars.color.accent,
+  fontWeight: 600,
+  fontSize: vars.fontSize.base,
+  border: `1px solid ${vars.color.accent}`,
+  transition: 'transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease',
+  ':hover': {
+    textDecoration: 'none',
+    transform: 'translateY(-1px)',
+    boxShadow: vars.shadow.md,
+    background: vars.color.accentSoft,
+    color: vars.color.accentStrong,
+  },
+});
+
 export const heroMeta = style({
   fontSize: vars.fontSize.sm,
   color: vars.color.textFaint,

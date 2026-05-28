@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 
-export type PartId = 'intro' | 'math';
+export type PartId = 'intro' | 'math' | 'algorithm';
 
 export type MdxModule = { default: ComponentType<{ components?: Record<string, ComponentType<unknown>> }> };
 
@@ -31,6 +31,12 @@ export const parts: PartMeta[] = [
     title: 'Part 2. 양자 상태의 언어, 벡터와 선형대수',
     description:
       '"양자 상태 = 벡터, 양자 연산 = 행렬". 복소수와 벡터부터 시작해 디랙 표기법, 기저, 텐서곱, 유니터리 연산까지 차근차근 쌓는다.',
+  },
+  {
+    id: 'algorithm',
+    title: 'Part 3. 양자 알고리즘',
+    description:
+      '앞에서 쌓은 도구로 진짜 알고리즘을 만든다. 얽힘과 텔레포테이션, 위상 킥백과 Deutsch, 그리고 Grover 검색까지 — 모두 "중첩 → 위상 → 간섭" 한 골격이다.',
   },
 ];
 
@@ -106,6 +112,30 @@ export const chapters: ChapterMeta[] = [
     subtitle: '선형 연산자, unitary·Hermitian, Pauli 행렬',
     partId: 'math',
     loader: () => import('./09-quantum-operation.mdx'),
+  },
+  {
+    slug: '10-entanglement-teleportation',
+    number: 10,
+    title: '얽힘과 양자 텔레포테이션',
+    subtitle: 'Bell 상태, 얽힘, 그리고 상태를 옮기는 법',
+    partId: 'algorithm',
+    loader: () => import('./10-entanglement-teleportation.mdx'),
+  },
+  {
+    slug: '11-phase-kickback-deutsch',
+    number: 11,
+    title: '위상 킥백과 Deutsch 알고리즘',
+    subtitle: '오라클, 위상 킥백, 첫 양자 우위',
+    partId: 'algorithm',
+    loader: () => import('./11-phase-kickback-deutsch.mdx'),
+  },
+  {
+    slug: '12-grover-search',
+    number: 12,
+    title: 'Grover 검색 알고리즘',
+    subtitle: '오라클·확산기·기하학적 회전으로 O(√N) 검색',
+    partId: 'algorithm',
+    loader: () => import('./12-grover-search.mdx'),
   },
 ];
 

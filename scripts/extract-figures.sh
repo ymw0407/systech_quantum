@@ -18,6 +18,9 @@ mkdir -p "$OUT"
 PDF=pdf
 LAB="$PDF/1장_lab01QuantumCircuit.pdf"   # 양자 회로 구성 실습
 STATE="$PDF/3장_1QuantumState.pdf"        # 양자 상태와 선형대수
+TELE="$PDF/3장_4QuantumTeleportation.pdf" # 얽힘과 텔레포테이션
+DEUTSCH="$PDF/4장_1Deutsch.pdf"           # Deutsch 알고리즘
+GROVER="$PDF/5장_1Grover.pdf"             # Grover 검색 알고리즘
 
 render() {
   local src="$1"     # pdf 경로
@@ -76,5 +79,20 @@ render "$STATE" 34 ch08-4qubit-half-adder    # 4-qubit states in half-adder
 # ── Ch9. 양자 연산은 행렬이다 ─────────────────────────────────
 render "$STATE" 39 ch09-transpose-hermitian  # inverse / transpose / Hermitian transpose
 render "$STATE" 42 ch09-pauli-operators      # Pauli operators are Hermitian
+
+# ── Ch10. 얽힘과 텔레포테이션 ─────────────────────────────────
+render "$TELE"  2  ch10-bell-states          # 네 가지 Bell state
+render "$TELE"  3  ch10-bell-creation         # Bell state 만드는 회로 (H + CX)
+render "$TELE" 12  ch10-teleportation-protocol # 텔레포테이션 전체 프로토콜 + 보정
+
+# ── Ch11. 위상 킥백과 Deutsch 알고리즘 ────────────────────────
+render "$DEUTSCH" 2  ch11-constant-balanced  # constant vs balanced function
+render "$DEUTSCH" 11 ch11-phase-kickback      # phase kickback 회로
+render "$DEUTSCH" 9  ch11-deutsch-output      # Deutsch 알고리즘 출력 (constant/balanced)
+
+# ── Ch12. Grover 검색 알고리즘 ────────────────────────────────
+render "$GROVER" 3  ch12-grover-overview     # 진폭 증폭 개요 (마술 비유)
+render "$GROVER" 8  ch12-oracle-reflection    # 오라클 반사 (위상 뒤집기)
+render "$GROVER" 14 ch12-diffuser            # Householder reflection (diffuser)
 
 echo "✅ 추출 완료. public/figures/ 를 확인하세요."

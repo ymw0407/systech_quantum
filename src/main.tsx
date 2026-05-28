@@ -12,6 +12,7 @@ import { Home } from './pages/Home';
 import { mdxComponents } from './mdxComponents';
 
 const Chapter = lazy(() => import('./pages/Chapter').then((m) => ({ default: m.Chapter })));
+const Quiz = lazy(() => import('./pages/Quiz').then((m) => ({ default: m.Quiz })));
 
 function PageFallback() {
   return <div style={{ padding: '48px', opacity: 0.6 }}>로딩 중…</div>;
@@ -29,6 +30,14 @@ createRoot(document.getElementById('root')!).render(
               element={
                 <Suspense fallback={<PageFallback />}>
                   <Chapter />
+                </Suspense>
+              }
+            />
+            <Route
+              path="quiz"
+              element={
+                <Suspense fallback={<PageFallback />}>
+                  <Quiz />
                 </Suspense>
               }
             />
