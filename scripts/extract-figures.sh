@@ -21,6 +21,7 @@ STATE="$PDF/3장_1QuantumState.pdf"        # 양자 상태와 선형대수
 TELE="$PDF/3장_4QuantumTeleportation.pdf" # 얽힘과 텔레포테이션
 DEUTSCH="$PDF/4장_1Deutsch.pdf"           # Deutsch 알고리즘
 GROVER="$PDF/5장_1Grover.pdf"             # Grover 검색 알고리즘
+SHOR="$PDF/6장_7Shor.pdf"                 # Shor 인수분해 알고리즘
 
 render() {
   local src="$1"     # pdf 경로
@@ -94,5 +95,12 @@ render "$DEUTSCH" 9  ch11-deutsch-output      # Deutsch 알고리즘 출력 (con
 render "$GROVER" 3  ch12-grover-overview     # 진폭 증폭 개요 (마술 비유)
 render "$GROVER" 8  ch12-oracle-reflection    # 오라클 반사 (위상 뒤집기)
 render "$GROVER" 14 ch12-diffuser            # Householder reflection (diffuser)
+
+# ── Ch13. Shor 인수분해 알고리즘 ──────────────────────────────
+render "$SHOR" 2  ch13-shor-flowchart        # 전체 알고리즘 흐름도
+render "$SHOR" 3  ch13-order-finding         # order = period of a^x mod N
+render "$SHOR" 7  ch13-example-21            # 예: N=21, a=19 성공 사례
+render "$SHOR" 15 ch13-qpe-circuit           # QPE 회로
+render "$SHOR" 25 ch13-shor-measurement      # QPE 측정값 → continued fraction → r
 
 echo "✅ 추출 완료. public/figures/ 를 확인하세요."

@@ -78,6 +78,107 @@ $|s\rangle\langle s|$ 로 만든 행렬). 이는 $|s\rangle$ 축에 대한 반�
 > 연달아 하면, 전체적으로 상태 벡터가 $|w\rangle$ 쪽으로 **$2\theta$ 만큼 회전** 한다.
 > 정답 방향 성분이 그만큼 커진다.
 
+### 식 전체 유도 — 한 번의 Grover 반복
+
+"두 반사 = 회전" 을 손으로 직접 확인해 본다. 모든 계산은 $\{|w\rangle, |s'\rangle\}$
+이라는 2차원 정규직교 기저 안에서 일어난다 (5장 내적 + 7장 기저). 시작 상태:
+
+$$
+|s\rangle = \sin\theta\,|w\rangle + \cos\theta\,|s'\rangle
+$$
+
+#### ① 오라클 반사 — $V_f$ 적용
+
+$V_f$ 는 $|w\rangle$ 의 부호만 뒤집고 $|s'\rangle$ 는 그대로 둔다 ($|s'\rangle$ 안에는
+$|w\rangle$ 가 없으므로).
+
+$$
+\begin{aligned}
+|\phi_1\rangle = V_f\,|s\rangle &= V_f\bigl(\sin\theta\,|w\rangle + \cos\theta\,|s'\rangle\bigr) \\
+&= \sin\theta\,V_f|w\rangle + \cos\theta\,V_f|s'\rangle \\
+&= -\sin\theta\,|w\rangle + \cos\theta\,|s'\rangle
+\end{aligned}
+$$
+
+기하적으로 $|s'\rangle$ 축에 대한 반사 — $|w\rangle$ 성분만 부호가 바뀐다.
+
+#### ② 확산기 — $D_s = 2|s\rangle\langle s| - I$ 적용
+
+$D_s$ 를 $|\phi_1\rangle$ 에 적용한다. 분배 + 내적 한 줄로:
+
+$$
+\begin{aligned}
+|\psi_1\rangle &= D_s\,|\phi_1\rangle = \bigl(2|s\rangle\langle s| - I\bigr)\,|\phi_1\rangle \\
+&= 2|s\rangle\,\langle s|\phi_1\rangle \;-\; |\phi_1\rangle
+\end{aligned}
+$$
+
+먼저 내적 $\langle s|\phi_1\rangle$ 을 계산. $|s\rangle = \sin\theta\,|w\rangle + \cos\theta\,|s'\rangle$
+의 bra 는 $\langle s| = \sin\theta\,\langle w| + \cos\theta\,\langle s'|$ (실수 계수이니
+켤레는 변화 없음). 직교성 $\langle w|w\rangle = \langle s'|s'\rangle = 1$,
+$\langle w|s'\rangle = 0$ 을 쓰면:
+
+$$
+\begin{aligned}
+\langle s|\phi_1\rangle &= \bigl(\sin\theta\,\langle w| + \cos\theta\,\langle s'|\bigr)\bigl(-\sin\theta\,|w\rangle + \cos\theta\,|s'\rangle\bigr) \\
+&= -\sin^2\theta\,\langle w|w\rangle + \cos^2\theta\,\langle s'|s'\rangle + 0 \\
+&= \cos^2\theta - \sin^2\theta \\
+&= \cos 2\theta
+\end{aligned}
+$$
+
+(마지막은 삼각함수 배각 공식 $\cos 2\theta = \cos^2\theta - \sin^2\theta$.)
+
+이제 본식에 대입:
+
+$$
+\begin{aligned}
+|\psi_1\rangle &= 2\cos 2\theta\,|s\rangle - |\phi_1\rangle \\
+&= 2\cos 2\theta\,\bigl(\sin\theta\,|w\rangle + \cos\theta\,|s'\rangle\bigr) - \bigl(-\sin\theta\,|w\rangle + \cos\theta\,|s'\rangle\bigr) \\
+&= \bigl(2\cos 2\theta\,\sin\theta + \sin\theta\bigr)|w\rangle + \bigl(2\cos 2\theta\,\cos\theta - \cos\theta\bigr)|s'\rangle
+\end{aligned}
+$$
+
+#### ③ 삼각함수 정리 — $\sin 3\theta$, $\cos 3\theta$ 가 나온다
+
+$|w\rangle$ 계수를 정리. $\cos 2\theta = 1 - 2\sin^2\theta$ 를 쓰면:
+
+$$
+\begin{aligned}
+2\cos 2\theta\,\sin\theta + \sin\theta &= \sin\theta\,(2\cos 2\theta + 1) \\
+&= \sin\theta\,\bigl(2(1 - 2\sin^2\theta) + 1\bigr) \\
+&= \sin\theta\,(3 - 4\sin^2\theta) \\
+&= 3\sin\theta - 4\sin^3\theta \\
+&= \sin 3\theta
+\end{aligned}
+$$
+
+(마지막은 삼각함수 삼배각 공식.) 같은 방식으로 $|s'\rangle$ 계수:
+
+$$
+\begin{aligned}
+2\cos 2\theta\,\cos\theta - \cos\theta &= \cos\theta\,(2\cos 2\theta - 1) \\
+&= \cos\theta\,\bigl(2(2\cos^2\theta - 1) - 1\bigr) \\
+&= \cos\theta\,(4\cos^2\theta - 3) \\
+&= 4\cos^3\theta - 3\cos\theta \\
+&= \cos 3\theta
+\end{aligned}
+$$
+
+#### 결론 — 정확히 $2\theta$ 만큼 회전
+
+$$
+\boxed{\;|\psi_1\rangle = \sin 3\theta\,|w\rangle + \cos 3\theta\,|s'\rangle\;}
+$$
+
+처음에 $|s\rangle = \sin\theta\,|w\rangle + \cos\theta\,|s'\rangle$ 였으니, 각도가
+$\theta \to 3\theta$ 로 늘어났다 — **정확히 $2\theta$ 만큼 $|w\rangle$ 쪽으로 회전.** 이를
+한 번 더 돌리면 $5\theta$, 또 한 번 더 돌리면 $7\theta$ … 매 반복마다 $|w\rangle$ 의
+진폭이 커진다.
+
+> **Grover 반복 $k$ 번 뒤**: $|\psi_k\rangle = \sin\bigl((2k+1)\theta\bigr)\,|w\rangle + \cos\bigl((2k+1)\theta\bigr)\,|s'\rangle$.
+> 측정 시 정답 확률 = $\sin^2\bigl((2k+1)\theta\bigr)$.
+
 ## 몇 번 반복해야 하나 — $O(\sqrt{N})$
 
 한 번 반복할 때마다 $|w\rangle$ 쪽으로 $2\theta$ 씩 회전한다. 시작 각도는 $\theta$ 였으니,

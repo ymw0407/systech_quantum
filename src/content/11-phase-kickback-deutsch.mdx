@@ -72,23 +72,93 @@ $|1\rangle$ 이 뒤바뀌어 $-|x\rangle|-\rangle$. 즉 부호가 $(-1)^{f(x)}$ 
 3. $q_1$ 에 다시 **H** 를 걸어 간섭시킴.
 4. $q_1$ 측정.
 
-3단계 후 $q_1$ 의 상태를 계산하면:
+### 식 전체 유도 — 한 줄도 빠짐없이
+
+위 네 단계를 식으로 처음부터 따라가 본다. ($q_1$ 큐비트를 왼쪽, $q_0$ 를 오른쪽으로 적는다.)
+
+#### 0단계 — 초기 상태
 
 $$
-|\psi_1\rangle = \tfrac{1}{2}\Bigl[(-1)^{f(0)}\bigl(|0\rangle+|1\rangle\bigr) + (-1)^{f(1)}\bigl(|0\rangle-|1\rangle\bigr)\Bigr]
+|\psi_0\rangle = |0\rangle_1 \otimes |1\rangle_0
 $$
 
-여기서 두 경우로 갈린다.
+#### 1단계 — 양쪽 큐비트에 H 적용
 
 $$
 \begin{aligned}
-f(0) = f(1) \;(\text{상수}) &\;\Rightarrow\; |\psi_1\rangle = \pm|0\rangle &&\Rightarrow\; \text{측정값 } 0 \\
-f(0) \ne f(1) \;(\text{균형}) &\;\Rightarrow\; |\psi_1\rangle = \pm|1\rangle &&\Rightarrow\; \text{측정값 } 1
+|\psi_0'\rangle &= (H \otimes H)\,|\psi_0\rangle \\
+&= \bigl(H|0\rangle\bigr) \otimes \bigl(H|1\rangle\bigr) \\
+&= |+\rangle_1 \otimes |-\rangle_0 \\
+&= \tfrac{1}{\sqrt{2}}\bigl(|0\rangle_1 + |1\rangle_1\bigr) \otimes |-\rangle_0
 \end{aligned}
 $$
 
-상수면 같은 위상끼리 **보강 간섭** 해서 $|0\rangle$ 만 남고, 균형이면 **상쇄 간섭** 으로
-$|0\rangle$ 이 사라지고 $|1\rangle$ 만 남는다 (4장의 간섭이 그대로!).
+#### 2단계 — 오라클 $U_f$ 통과 (위상 킥백)
+
+방금 본 $U_f|x\rangle|-\rangle = (-1)^{f(x)}|x\rangle|-\rangle$ 를 분배법칙으로 적용:
+
+$$
+\begin{aligned}
+|\psi_1\rangle &= U_f\,|\psi_0'\rangle \\
+&= U_f \cdot \tfrac{1}{\sqrt{2}}\bigl(|0\rangle_1 + |1\rangle_1\bigr) \otimes |-\rangle_0 \\
+&= \tfrac{1}{\sqrt{2}}\bigl(U_f\,|0\rangle_1|-\rangle_0 + U_f\,|1\rangle_1|-\rangle_0\bigr) \\
+&= \tfrac{1}{\sqrt{2}}\Bigl((-1)^{f(0)}|0\rangle_1 + (-1)^{f(1)}|1\rangle_1\Bigr) \otimes |-\rangle_0
+\end{aligned}
+$$
+
+> $f(x)$ 가 출력 큐비트가 아니라 **$q_1$ 의 각 항에 부호** 로 붙었다. 이게 위상 킥백.
+
+#### 3단계 — $q_1$ 에 다시 H ($q_0$ 는 그대로)
+
+$H|0\rangle = |+\rangle = \tfrac{1}{\sqrt 2}(|0\rangle+|1\rangle)$, $H|1\rangle = |-\rangle = \tfrac{1}{\sqrt 2}(|0\rangle-|1\rangle)$ 를 대입:
+
+$$
+\begin{aligned}
+|\psi_2\rangle &= (H \otimes I)\,|\psi_1\rangle \\
+&= \tfrac{1}{\sqrt{2}}\Bigl((-1)^{f(0)}H|0\rangle + (-1)^{f(1)}H|1\rangle\Bigr) \otimes |-\rangle_0 \\
+&= \tfrac{1}{\sqrt{2}}\Bigl((-1)^{f(0)}|+\rangle + (-1)^{f(1)}|-\rangle\Bigr) \otimes |-\rangle_0 \\
+&= \tfrac{1}{2}\Bigl[(-1)^{f(0)}(|0\rangle+|1\rangle) + (-1)^{f(1)}(|0\rangle-|1\rangle)\Bigr] \otimes |-\rangle_0
+\end{aligned}
+$$
+
+같은 자리(같은 ket) 끼리 모으면:
+
+$$
+|\psi_2\rangle = \tfrac{1}{2}\Bigl[\underbrace{\bigl((-1)^{f(0)} + (-1)^{f(1)}\bigr)}_{|0\rangle \text{ 계수}}\,|0\rangle + \underbrace{\bigl((-1)^{f(0)} - (-1)^{f(1)}\bigr)}_{|1\rangle \text{ 계수}}\,|1\rangle\Bigr] \otimes |-\rangle_0
+$$
+
+#### 4단계 — 두 가지 경우로 갈린다
+
+**경우 A — 상수 함수 ($f(0) = f(1)$)**: 두 부호가 같으니 $(-1)^{f(0)} = (-1)^{f(1)}$.
+
+$$
+\begin{aligned}
+|0\rangle \text{ 계수} &= (-1)^{f(0)} + (-1)^{f(0)} = 2\,(-1)^{f(0)} \\
+|1\rangle \text{ 계수} &= (-1)^{f(0)} - (-1)^{f(0)} = 0 \\
+\Rightarrow\;\; |\psi_2\rangle &= (-1)^{f(0)}\,|0\rangle_1 \otimes |-\rangle_0
+\end{aligned}
+$$
+
+→ $q_1$ 측정값 **0** (보강 간섭으로 $|0\rangle$ 만 살아남음).
+
+**경우 B — 균형 함수 ($f(0) \ne f(1)$)**: $(-1)^{f(0)} = -(-1)^{f(1)}$.
+
+$$
+\begin{aligned}
+|0\rangle \text{ 계수} &= (-1)^{f(0)} + \bigl(-(-1)^{f(0)}\bigr) = 0 \\
+|1\rangle \text{ 계수} &= (-1)^{f(0)} - \bigl(-(-1)^{f(0)}\bigr) = 2\,(-1)^{f(0)} \\
+\Rightarrow\;\; |\psi_2\rangle &= (-1)^{f(0)}\,|1\rangle_1 \otimes |-\rangle_0
+\end{aligned}
+$$
+
+→ $q_1$ 측정값 **1** ($|0\rangle$ 이 상쇄 간섭으로 죽고 $|1\rangle$ 만 남음).
+
+<Callout kind="summary" title="결과 한 줄로">
+- $f(0) = f(1)$ (**상수**) → $q_1$ 측정 = **0**
+- $f(0) \ne f(1)$ (**균형**) → $q_1$ 측정 = **1**
+
+4장의 보강·상쇄 간섭이 그대로 작동했다. 같은 위상은 모여서 살고, 반대 위상은 빠져서 사라진다.
+</Callout>
 
 <Figure
   src="/figures/ch11-deutsch-output.png"

@@ -137,6 +137,14 @@ export const chapters: ChapterMeta[] = [
     partId: 'algorithm',
     loader: () => import('./12-grover-search.mdx'),
   },
+  {
+    slug: '13-shor-factoring',
+    number: 13,
+    title: 'Shor 인수분해 알고리즘',
+    subtitle: 'order finding + QPE 로 RSA 를 위협한 다항 시간 인수분해',
+    partId: 'algorithm',
+    loader: () => import('./13-shor-factoring.mdx'),
+  },
 ];
 
 export function chapterBySlug(slug: string | undefined): ChapterMeta | undefined {

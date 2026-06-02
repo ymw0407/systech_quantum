@@ -501,6 +501,64 @@ export const quiz: QuizQuestion[] = [
     explanation:
       '약 (π/4)√N 번이 최적. 회전이 |w⟩을 지나치면 진폭이 오히려 줄어든다 — "더 돌릴수록 좋다"가 아니라 적절한 횟수에서 멈춰야 한다.',
   },
+
+  // ── Ch13. Shor 인수분해 ─────────────────────────────────
+  {
+    id: 'q13-1',
+    chapter: 13,
+    question: 'Shor 알고리즘이 인수분해를 환원하는 문제는?',
+    choices: [
+      '소수 판정',
+      'a의 N에 대한 order 찾기 (a^r ≡ 1 (mod N) 인 최소 r)',
+      '정렬되지 않은 검색',
+      'XOR 연산',
+    ],
+    answer: 1,
+    explanation:
+      '인수분해는 "a의 N에 대한 order r 찾기"로 환원된다. r이 짝수이고 운이 좋으면 gcd(a^(r/2)+1, N) 이 약수를 준다. order finding은 고전적으로 어려워 양자가 필요.',
+  },
+  {
+    id: 'q13-2',
+    chapter: 13,
+    question: '유니터리 $U_{a,N}|x\\rangle = |ax \\bmod N\\rangle$ 가 유니터리인 이유는?',
+    choices: [
+      'a가 소수라서',
+      'a와 N이 서로소이므로 곱하기 a가 {0,...,N-1}의 순열(permutation)이 되어 순열 행렬은 유니터리',
+      '모든 행렬은 유니터리',
+      '측정 가능해서',
+    ],
+    answer: 1,
+    explanation:
+      'gcd(a,N)=1 이면 x → ax mod N 이 가역적인 순열이다. 순열 행렬은 항상 유니터리(P^T = P^{-1})이므로 양자 게이트로 쓸 수 있다.',
+  },
+  {
+    id: 'q13-3',
+    chapter: 13,
+    question: 'Shor 알고리즘에서 양자 부분이 측정하는 양은?',
+    choices: [
+      '직접 r 자체',
+      'a, N 자체',
+      'U_{a,N} 의 고유값 위상 θ = s/r (s는 무작위)',
+      '정답 |w⟩',
+    ],
+    answer: 2,
+    explanation:
+      'QPE가 U_{a,N} 의 고유값 e^{2πi s/r} 에서 위상 θ = s/r 을 t비트로 측정한다. 그 뒤 연속분수(continued fraction)로 r 을 복원하는 고전 후처리.',
+  },
+  {
+    id: 'q13-4',
+    chapter: 13,
+    question: 'r 이 짝수일 때 N 의 약수를 얻는 식은?',
+    choices: [
+      '$a^r \\bmod N$',
+      '$\\gcd(a^{r/2} + 1, N)$ — 운이 좋으면 p 또는 q',
+      '$N / r$',
+      '$a + r$',
+    ],
+    answer: 1,
+    explanation:
+      'a^r - 1 = (a^(r/2)+1)(a^(r/2)-1) = Nm 에서, 운 좋으면 p와 q가 두 인수에 나뉘어 들어가 gcd(a^(r/2)+1, N) = p 가 약수. 무작위 a 의 절반 이상은 "lucky"이라 두세 번 시도면 성공.',
+  },
 ];
 
 export function quizByChapter(chapter: number): QuizQuestion[] {
