@@ -138,12 +138,6 @@ $$
 
 bra가 ket의 Hermitian 전치였던 것(5장)과 같은 연산이다.
 
-<Figure
-  src="/figures/ch09-transpose-hermitian.png"
-  caption="역행렬·전치·Hermitian 전치. A† = (Aᵗ)* 가 곧 역행렬이면 unitary, A† = A 이면 Hermitian — 양자 연산을 규정하는 두 가지 핵심 조건이다."
-  source="「프로그래밍으로 배우는 양자컴퓨팅」 강의자료"
-/>
-
 ## unitary 연산자 — 양자 게이트의 정체
 
 $$
@@ -195,12 +189,6 @@ Hermitian 연산자는 `⟨ψ|Ĥ|ψ⟩` 가 항상 **실수** 라는 성질을 �
 $$
 \sigma_y = \begin{bmatrix} 0 & -i \\ i & 0 \end{bmatrix}
 $$
-
-<Figure
-  src="/figures/ch09-pauli-operators.png"
-  caption="Pauli Y 연산자 σᵧ. σᵧ† = σᵧ 이므로 Hermitian, σᵧ σᵧ† = I 이므로 unitary — 두 조건을 동시에 만족하는 행렬이라 게이트로도 측정 기준으로도 쓰인다."
-  source="「프로그래밍으로 배우는 양자컴퓨팅」 강의자료"
-/>
 
 이 `σᵧ` 를 따져 보면:
 
@@ -291,11 +279,18 @@ $$
 $T$ 가 "$\pi/8$ 게이트" 라고도 불리는데, 이는 $T$ 의 전체 위상까지 고려하면 $e^{-i\pi/8}$
 배의 위상이 따라붙는 관습 때문이다.
 
-<Figure
-  src="/figures/ch09-gates-table.png"
-  caption="단일 큐비트 게이트 한눈에 보기 — Hadamard, Pauli X·Y·Z, S, T 가 IBM Composer 팔레트에 그대로 대응된다."
-  source="「프로그래밍으로 배우는 양자컴퓨팅」 강의자료"
-/>
+지금까지의 단일 큐비트 게이트를 한눈에 정리하면 (행렬은 위에서 다 봤다) — 각각이 IBM
+Composer 팔레트의 버튼 하나에 대응된다.
+
+| 게이트 | 한 줄 역할 | 위상 |
+|--------|-----------|------|
+| `I` | 항등 (아무 일도 안 함) | — |
+| `X` | 비트 뒤집기 (고전 NOT) | — |
+| `Y` | 비트 뒤집기 + 허수 위상 | ±90° |
+| `Z` | 위상만 뒤집기 (비트는 그대로) | 180° |
+| `H` | 중첩 만들기 / 기저 변환 ($X\leftrightarrow Z$) | — |
+| `S` | 위상 게이트 ($=\sqrt{Z}$) | 90° |
+| `T` | 위상 게이트 ($=\sqrt{S}=\sqrt[4]{Z}$) | 45° |
 
 ### ② 게이트 항등식 — 자주 쓰는 cheat sheet
 
@@ -310,12 +305,6 @@ HXH &= Z, \quad HZH = X &&\text{($H$ 가 } X \leftrightarrow Z \text{ 변환)} \
 S^2 &= Z, \quad T^2 = S, \quad T = \sqrt{S} = \sqrt[4]{Z}
 \end{aligned}
 $$
-
-<Figure
-  src="/figures/ch09-gate-identities.png"
-  caption="게이트 항등식 모음. HXH=Z 가 특히 자주 쓰인다 — 위상 킥백 회로(11장)에서 'X 기저 측정 = Z 기저로 변환 후 측정' 이 가능한 이유."
-  source="「프로그래밍으로 배우는 양자컴퓨팅」 강의자료"
-/>
 
 ### ③ 텐서곱 게이트 — 워크스루: $Y \otimes X$
 
@@ -338,12 +327,6 @@ $$
 핵심 규칙 $(A \otimes B)(\alpha \otimes \beta) = (A\alpha) \otimes (B\beta)$ 가 그대로 떨어진다.
 **$Y$ 가 $q_1$ 에, $X$ 가 $q_0$ 에 따로 작용한 결과의 곱**이다.
 
-<Figure
-  src="/figures/ch09-y-tensor-x.png"
-  caption="2큐비트 게이트 Y⊗X. Kronecker 곱으로 4×4 행렬이 떨어지고, |00⟩ 에 적용하면 i|11⟩ — 각 큐비트가 따로 처리된 결과의 텐서곱."
-  source="「프로그래밍으로 배우는 양자컴퓨팅」 강의자료"
-/>
-
 ### ④ CX(CNOT) 행렬 — 그리고 방향 함정
 
 2장에서 CX 를 진리표로 봤다. 행렬은 어떻게 생겼나? $|q_1 q_0\rangle$ 순서로 $q_1$ 이
@@ -356,12 +339,6 @@ $$
 위 두 행은 $|00\rangle, |01\rangle$ 그대로 (control=0), 아래 두 행이 $|10\rangle \leftrightarrow |11\rangle$
 서로 맞바뀜 (control=1 일 때만 target 뒤집기).
 
-<Figure
-  src="/figures/ch09-cnot-matrix.png"
-  caption="CNOT(CX) 게이트 행렬. control(q₁) = |1⟩ 일 때만 target(q₀) 을 뒤집는 4×4 unitary. 양자 회로의 '얽힘 만드는 도구' (10장 Bell state 생성)."
-  source="「프로그래밍으로 배우는 양자컴퓨팅」 강의자료"
-/>
-
 #### 방향 함정 — $C_{01}$ vs $C_{10}$
 
 같은 CX 게이트라도 **어느 큐비트가 control 이냐** 에 따라 행렬이 다르다.
@@ -373,12 +350,6 @@ $$
 $C_{01}$ 은 control = $q_0$, target = $q_1$ — $|01\rangle \leftrightarrow |11\rangle$ 가 바뀐다
 ($q_0$ 가 1일 때 $q_1$ 뒤집기). $C_{10}$ 은 그 반대. **회로 그릴 때 ●(control) 위치를 꼭
 확인해야 한다.**
-
-<Figure
-  src="/figures/ch09-c01-vs-c10.png"
-  caption="C₀₁ vs C₁₀. 같은 CX 모양이라도 control·target 위치가 바뀌면 행렬이 다르다. 회로도에서 ●가 어느 큐비트에 있는지 확인 필수."
-  source="「프로그래밍으로 배우는 양자컴퓨팅」 강의자료"
-/>
 
 ### ⑤ Toffoli(CCX) — 3큐비트, 8×8 행렬
 
@@ -399,12 +370,6 @@ $$
 
 마지막 두 행에서 $|110\rangle \leftrightarrow |111\rangle$ 가 바뀐다 — 앞 두 control 비트가 다
 1일 때만 target($q_0$) 뒤집기.
-
-<Figure
-  src="/figures/ch09-ccx-matrix.png"
-  caption="Toffoli(CCX) 게이트 행렬. 위 6×6 부분은 단위행렬, 마지막 2×2 만 swap — control 두 개가 1일 때만 target 뒤집기. AND 역할."
-  source="「프로그래밍으로 배우는 양자컴퓨팅」 강의자료"
-/>
 
 <Callout kind="tip">
 **Toffoli + H = 만능**. CCX 와 Hadamard 게이트 두 종류면 임의의 양자 알고리즘을 (원하는
@@ -478,12 +443,6 @@ $$
 
 > **결과**: 네 항 $|010\rangle, |011\rangle, |100\rangle, |101\rangle$ 가 각각 진폭
 > $\pm\tfrac{i}{2}$. 측정 확률은 모두 $\left|\tfrac{i}{2}\right|^2 = \tfrac{1}{4} = 25\%$.
-
-<Figure
-  src="/figures/ch09-3qubit-solution.png"
-  caption="3큐비트 회로 풀이. 단계별 상태 ψ₀~ψ₄ 가 차례로 떨어진다 — 마지막은 네 항 |010⟩, |011⟩, |100⟩, |101⟩ 가 각 25% 확률. 양자 게이트 = 행렬 + 텐서곱 + 분배가 손에 익는 좋은 연습."
-  source="「프로그래밍으로 배우는 양자컴퓨팅」 강의자료"
-/>
 
 <Callout kind="summary" title="이 절의 카탈로그 요약">
 - **단일 큐비트**: $I, X, Y, Z$ (Pauli), $H$ (= $(X+Z)/\sqrt 2$), $S$ (= $\sqrt Z$), $T$ (= $\sqrt S$)

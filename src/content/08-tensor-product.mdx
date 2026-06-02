@@ -68,14 +68,23 @@ $$
 
 ### 행렬의 Kronecker 곱
 
-행렬도 마찬가지다. `A ⊗ B` 는 `A` 의 각 원소 `aᵢⱼ` 를 `aᵢⱼ·B` (행렬 `B` 전체에 그 수를
-곱한 블록)로 바꾼 큰 행렬이다. `A` 가 `n×n`, `B` 가 `m×m` 이면 `A ⊗ B` 는 `(nm)×(nm)`.
+행렬도 마찬가지다. `A ⊗ B` 는 `A` 의 각 원소 $a_{ij}$ 를 $a_{ij}\cdot B$ (행렬 $B$ 전체에
+그 수를 곱한 블록)로 바꾼 큰 행렬이다. $A$ 가 $n\times n$, $B$ 가 $m\times m$ 이면
+$A \otimes B$ 는 $(nm)\times(nm)$.
 
-<Figure
-  src="/figures/ch08-kronecker-product.png"
-  caption="두 행렬의 Kronecker 곱 A ⊗ B. A 의 각 원소 aᵢⱼ 가 aᵢⱼ·B 블록으로 부풀어, n×n 과 m×m 행렬이 (nm)×(nm) 크기의 큰 행렬이 된다."
-  source="「프로그래밍으로 배우는 양자컴퓨팅」 강의자료"
-/>
+$$
+A \otimes B = \begin{bmatrix} a_{11}B & a_{12}B & \cdots & a_{1n}B \\ a_{21}B & a_{22}B & \cdots & a_{2n}B \\ \vdots & \vdots & \ddots & \vdots \\ a_{n1}B & a_{n2}B & \cdots & a_{nn}B \end{bmatrix}
+$$
+
+작은 예로 확인하자. $A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$, $B$ 가 $2\times2$
+라면, 각 칸이 $B$ 블록으로 부풀어 $4\times4$ 가 된다.
+
+$$
+A \otimes B = \begin{bmatrix} a\,B & b\,B \\ c\,B & d\,B \end{bmatrix} = \begin{bmatrix} aB_{11} & aB_{12} & bB_{11} & bB_{12} \\ aB_{21} & aB_{22} & bB_{21} & bB_{22} \\ cB_{11} & cB_{12} & dB_{11} & dB_{12} \\ cB_{21} & cB_{22} & dB_{21} & dB_{22} \end{bmatrix}
+$$
+
+> 규칙은 한 줄이다: **왼쪽 행렬의 각 숫자 자리에, 오른쪽 행렬 통째를 그 숫자배 해서 끼워
+> 넣는다.** 9장에서 $Y \otimes X$ 를 이 방식으로 실제로 계산해 본다.
 
 ### 핵심 규칙
 
