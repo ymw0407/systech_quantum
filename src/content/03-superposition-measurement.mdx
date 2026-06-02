@@ -238,6 +238,92 @@ Composer에서 "Copy code" 로 qiskit 코드를 복사한 뒤 Colab 셀에 붙�
 못 찾는다는 오류가 나면 위의 `!pip install` 셀을 먼저 실행했는지 확인하자.
 </Callout>
 
+### 회로를 함수로 — 모듈화
+
+회로가 커지면 같은 패턴을 여러 번 쓰게 된다. 위 half adder 부분을 **함수로 빼서 재사용**
+할 수 있다.
+
+```python
+from qiskit import QuantumRegister, QuantumCircuit
+
+def half_adder(n):
+    qr = QuantumRegister(n)
+    qc = QuantumCircuit(qr)
+    qc.cx(qr[0], qr[2])
+    qc.cx(qr[1], qr[2])
+    qc.ccx(qr[0], qr[1], qr[3])
+    qc.name = 'half_adder'
+    return qc
+```
+
+이 함수를 호출하면 회로 객체가 돌아오고, 메인 회로에 **블록 하나로** 붙일 수 있다.
+
+```python
+qreg_q = QuantumRegister(4, 'q')
+creg_c = ClassicalRegister(4, 'c')
+circuit = QuantumCircuit(qreg_q, creg_c)
+
+circuit.x([qreg_q[0], qreg_q[1]])    # A=1, B=1 — 리스트로 한 줄에
+circuit.barrier()
+
+# 두 가지 방법:
+circuit.append(half_adder(4), [0, 1, 2, 3])           # 블록으로 (회로도에 사각형으로 표시)
+# circuit.compose(half_adder(4), range(4), inplace=True)  # 게이트로 펼침 (블록 사라짐)
+
+circuit.measure(qreg_q, creg_c)
+```
+
+<Figure
+  src="/figures/ch03-qiskit-half-adder-fn.png"
+  caption="half_adder() 를 함수로 정의한 뒤 append() 로 메인 회로에 끼우면 보라색 블록으로 표시된다. compose() 를 쓰면 안쪽 CX·CCX 가 그대로 펼쳐진 모습이 보인다."
+  source="「프로그래밍으로 배우는 양자컴퓨팅」 강의자료"
+/>
+
+`append` 와 `compose` 의 차이:
+- `append(...)` → 그림에 **하나의 블록** 으로 표시. 안 풀어서 보기 깔끔.
+- `compose(..., inplace=True)` → 안쪽 게이트들을 **펼쳐서** 메인 회로에 합침.
+
+### 시뮬레이터로 실제로 돌리기 — AerSimulator + SamplerV2
+
+qiskit 코드만 적고 실행 안 하면 회로 그림만 보고 끝난다. 실제로 측정 결과 분포를 얻으려면
+**시뮬레이터** 에 보내야 한다. 신버전 qiskit 의 표준 워크플로우는 다음과 같다.
+
+```python
+from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
+from qiskit_ibm_runtime import SamplerV2 as Sampler
+from qiskit_aer import AerSimulator
+
+aer_sim = AerSimulator()                                 # 시뮬레이터 백엔드
+pm = generate_preset_pass_manager(backend=aer_sim, optimization_level=1)
+isa_circuit = pm.run(circuit)                            # 회로를 백엔드에 맞게 변환
+
+sampler = Sampler(mode=aer_sim)
+job = sampler.run([isa_circuit], shots=1000)             # 1000번 측정
+result = job.result()
+count = result[0].data.c.get_counts()                    # 'c' 는 classical register 이름
+print(count)
+# 예: {'1011': 1000}   (입력 A=1, B=1 → 결정적으로 1+1=10)
+```
+
+```python
+from qiskit.visualization import plot_distribution
+plot_distribution(count)                                 # 막대그래프로 시각화
+```
+
+<Figure
+  src="/figures/ch03-qiskit-sampler.png"
+  caption="AerSimulator + SamplerV2 워크플로우. (1) pass manager 로 회로를 백엔드용으로 변환 → (2) sampler.run(shots=N) → (3) result.data.<레지스터이름>.get_counts() 로 측정 분포를 dict 로 받음."
+  source="「프로그래밍으로 배우는 양자컴퓨팅」 강의자료"
+/>
+
+<Callout kind="tip">
+`result[0].data.c` 의 `c` 는 **`ClassicalRegister(4, 'c')` 에서 준 이름**. `creg_c = ClassicalRegister(4, 'creg')` 라고 만들었으면 `result[0].data.creg.get_counts()` 로 접근.
+변수 이름이 아니라 **회로 안에서의 레지스터 이름** 임에 주의.
+</Callout>
+
+입력에 H 게이트로 중첩을 주면 위 코드 그대로 돌려도 측정 분포가 4가지 (또는 더 많은) 값에
+퍼진다 — 1부의 "한 번에 네 덧셈" 이 실제 숫자로 보이는 순간이다.
+
 <Callout kind="summary">
 - **H 게이트**: `|0⟩` → 0/1 반반 중첩(`|+⟩`)
 - 입력을 중첩으로 넣으면 한 회로가 **모든 입력의 계산을 동시에** 수행 — 양자 연산이

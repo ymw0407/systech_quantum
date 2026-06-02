@@ -22,6 +22,8 @@ TELE="$PDF/3장_4QuantumTeleportation.pdf" # 얽힘과 텔레포테이션
 DEUTSCH="$PDF/4장_1Deutsch.pdf"           # Deutsch 알고리즘
 GROVER="$PDF/5장_1Grover.pdf"             # Grover 검색 알고리즘
 SHOR="$PDF/6장_7Shor.pdf"                 # Shor 인수분해 알고리즘
+OPS="$PDF/3장_3QuantumOperations.pdf"     # 양자 게이트 카탈로그
+QISKIT="$PDF/2장_qiskit_tutorial.pdf"     # qiskit 튜토리얼
 
 render() {
   local src="$1"     # pdf 경로
@@ -102,5 +104,19 @@ render "$SHOR" 3  ch13-order-finding         # order = period of a^x mod N
 render "$SHOR" 7  ch13-example-21            # 예: N=21, a=19 성공 사례
 render "$SHOR" 15 ch13-qpe-circuit           # QPE 회로
 render "$SHOR" 25 ch13-shor-measurement      # QPE 측정값 → continued fraction → r
+
+# ── Ch9 보강: 게이트 카탈로그 (3장_3 QuantumOperations) ─────────
+render "$OPS" 16 ch09-gates-table           # 단일 큐비트 게이트 행렬 표 (H, X, Y, Z, S, T)
+render "$OPS" 17 ch09-gate-identities       # 게이트 항등식 모음
+render "$OPS" 23 ch09-y-tensor-x            # 2큐비트 Y⊗X Kronecker 계산
+render "$OPS" 25 ch09-cnot-matrix           # CX 게이트 행렬 표현
+render "$OPS" 29 ch09-c01-vs-c10            # CX 방향에 따른 차이
+render "$OPS" 31 ch09-ccx-matrix            # CCX(Toffoli) 8x8 행렬
+render "$OPS" 35 ch09-3qubit-circuit        # 3큐비트 실습 회로
+render "$OPS" 36 ch09-3qubit-solution       # 3큐비트 풀이 ψ₀→ψ₄
+
+# ── Ch3 보강: qiskit 모듈화/Sampler (2장 qiskit_tutorial) ──────
+render "$QISKIT" 4  ch03-qiskit-half-adder-fn  # half_adder() 함수 모듈화
+render "$QISKIT" 8  ch03-qiskit-sampler        # AerSimulator + SamplerV2
 
 echo "✅ 추출 완료. public/figures/ 를 확인하세요."
