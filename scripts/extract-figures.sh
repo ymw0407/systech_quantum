@@ -104,6 +104,8 @@ render "$SHOR" 3  ch13-order-finding         # order = period of a^x mod N
 render "$SHOR" 7  ch13-example-21            # 예: N=21, a=19 성공 사례
 render "$SHOR" 15 ch13-qpe-circuit           # QPE 회로
 render "$SHOR" 25 ch13-shor-measurement      # QPE 측정값 → continued fraction → r
+render "$SHOR" 26 ch13-continued-fraction    # 연속분수 전개 + Fraction.limit_denominator
+render "$SHOR" 27 ch13-qpe-histogram         # QPE(U_19,21) 측정 히스토그램 + 추정 order 표
 
 # ── Ch9 보강: 게이트 카탈로그 (3장_3 QuantumOperations) ─────────
 render "$OPS" 16 ch09-gates-table           # 단일 큐비트 게이트 행렬 표 (H, X, Y, Z, S, T)
